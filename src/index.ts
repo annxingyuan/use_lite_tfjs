@@ -52,7 +52,7 @@ window.getEmbedding = async function(str){
   const embedding = await embed(encoding);
   const vec = embedding.dataSync();
 
-  var rv = {encoding, embedding, vec}
+  var rv = {str, encoding, embedding, vec}
   embedCache[str] = rv
   return rv
 }

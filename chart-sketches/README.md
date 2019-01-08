@@ -39,6 +39,9 @@ type in lots of sentences, add them to a heat map like in the USE paper
 decoding. can we add the average movement when queen goes to king to another sentence and find out which token substitutions closest?
 
 
+does shifting tense make a uniform transformation
+
+
 does this understand the difference between words, bank and bank?
 
 
@@ -50,7 +53,7 @@ maybe we should give the encoder some tasks? all of these charts are showing lin
 
 
 
-
+http://nlp.cs.illinois.edu/HockenmaierGroup/8k-pictures.html
 
 
 https://bost.ocks.org/mike/algorithms/
