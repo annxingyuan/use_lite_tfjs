@@ -13,6 +13,18 @@ circle art; maybe sort it?
 capture everything you type and show how the vector changes over time
 
 
+02-typing-log-diff
+
+show how the current line is different than previous one by highlighting the abs dif between vectors
+
+
+03-grid-diff
+
+
+
+
+
+
 skip word
 
 for every token, draw a histogram/tiny grid of how each vector changes from the whole sentence when that token isn't included.
@@ -23,8 +35,8 @@ grid-over-time
 show grid of vectors, here's how they look over time as each token gets added
 
 
+could show the skip-word chart and the over time chart as a grid to highlight how the importance of words changes based on another world... basically wanting to show more than just one dimension of removals
 
-vector over the sentence  (don't remember what this is!)
 
 
 

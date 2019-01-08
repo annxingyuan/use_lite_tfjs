@@ -45,12 +45,12 @@ window.init = init
 var embedCache = window.embedCache = {}
 
 window.getEmbedding = async function(str){
-  if (embedCache[str]) return str
+  if (embedCache[str]) return embedCache[str]
 
   const encoding = tokenizer.encode(str);
 
   const embedding = await embed(encoding);
-  const vec = embedding.dataSync();
+  const vec = await embedding.dataSync();
 
   var rv = {str, encoding, embedding, vec}
   embedCache[str] = rv

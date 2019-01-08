@@ -10,7 +10,8 @@ async function addLine(str0, str1){
   var prevEmbed = _.last(lines) || embed0
   lines.push(embed0)
 
-  absdiff = d3.range(512).map(i => Math.abs(prevEmbed.vec[i] - embed0.vec[i]))
+  absdiff = d3.range(512)
+    .map(i => Math.abs(prevEmbed.vec[i] - embed0.vec[i]))
 
 
   var newRowSel = d3.select('#graph').append('div.fragment-row')
