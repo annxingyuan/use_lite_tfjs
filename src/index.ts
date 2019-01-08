@@ -28,12 +28,30 @@ async function init() {
   vocabulary = await loadVocab();
 
   const tokenizer = new Tokenizer(vocabulary);
-  const encoding = tokenizer.encode('I saw a girl with an alligator.');
-  encoding.forEach(d => console.log(vocabulary[d]));
 
-  const embedding = await embed(encoding);
-  const embeddingValues = embedding.dataSync();
-  console.log(embeddingValues);
+  window.tokenizer = tokenizer
+  // console.log({tokenizer})
+
+  // const encoding = tokenizer.encode('I saw a girl with an alligator.');
+
+  // const embedding = await embed(encoding);
+  // const embeddingValues = embedding.dataSync();
 }
 
-init();
+window.init = init 
+
+var embedCache = window.embedCache = {}
+
+window.getEmbedding = async function(str){
+  if (embedCache[str]) return str
+
+  const encoding = tokenizer.encode(str);
+
+  const embedding = await embed(encoding);
+  const vec = embedding.dataSync();
+
+  var rv = {encoding, embedding, vec}
+  embedCache[str] = rv
+  return rv
+}
+

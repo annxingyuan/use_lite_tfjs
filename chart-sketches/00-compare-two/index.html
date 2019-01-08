@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+
+
+<div id='input-bar'>
+	<input id='str0'></input>
+
+	<input id='str1'></input>
+</div>
+
+<div id='main'>
+
+	<section>
+		<p> 512 lines. The left side shows value for the first sentence, the right side value for the second sentence.
+
+		<div id='graph'></div>
+
+		<p> Doesn't do a great job highlighting changes in sign; not sure if shifting from .01 to -.01 is more important than .01 to .03. For two sentences, bars might be better. I'd like to try this form to show the creation of a whole sentence with mine line charts
+	</section>
+
+	<section>
+		<p> Simple strip. 512 is hard to squeeze in. Maybe we could look at how the ranking of different vectors change?
+
+		<div id='heat-line-0'></div>
+		<div id='heat-line-1'></div>
+	</section>
+
+	<section>
+		<p> First sentence v. second sentence
+
+		<div id='scatter'></div>
+	</section>
+	
+</div>
+
+
+
+<script src="https://unpkg.com/@tensorflow/tfjs-core/dist/tf-core.js"></script>
+<script src="https://unpkg.com/@tensorflow/tfjs-converter/dist/tf-converter.js"></script>
+
+<script src="/dist/src.f10117fe.js"></script>
+
+
+<script src='d3_.js'></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<script src='_script.js'></script>
