@@ -36,6 +36,8 @@ async function init() {
 
   // const embedding = await embed(encoding);
   // const embeddingValues = embedding.dataSync();
+  // encoding.forEach(d => console.log(vocabulary[d]));
+
 }
 
 window.init = init 

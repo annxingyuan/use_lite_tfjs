@@ -48,84 +48,10 @@ async function drawChart(str0, str1){
   drawHeatLine(embed1, d3.select('#heat-line-1'))
 
   drawScatter(boxes)
-
-  drawArrival(boxes)
 }
 
-function drawArrival(boxes){
-  var sel = d3.select('#arrival')
 
-  var c = sel.datum()// && 0
-
-  var transitionDuration = c ? 500 : 0
-  // init arrival plot
-  if (!c){
-
-    var c = {}
-
-    var width = sel.node().offsetWidth
-    var r = width/2
-    var height = r
-
-    var svg = sel.html('').append('svg').at({width, height})
-      .append('g').translate([r, r])
-
-    var θscale = d3.scaleLinear()
-      .domain([0, boxes.length - 1])
-      .range([-Math.PI*2, 0])
-
-    x = d3.scaleLinear()
-      .domain([-0.06, 0.06])
-      .range([-r/1.2, 0])
-
-    var ticks = d3.range([.06, .03, 0, -.03, -0.06])
-    var arc = d3.arc().startAngle(-Math.PI / 2).endAngle(Math.PI / 2)
-    svg.appendMany('path', ticks)
-      .at({
-        d: d => arc({innerRadius: x(d) + r, outerRadius: x(d) + r}),
-        stroke: d => d == .5 ? '#000' : '#ccc',
-        strokeWidth: .5,
-      })
-
-    boxes.forEach((d, i) => {
-      d.θ = θscale(i)
-    })
-
-    var boxSel = svg.appendMany('g', boxes)
-      .translate(d => [Math.cos(d.θ)*r, Math.sin(d.θ)*r])
-      .call(d3.attachTooltip)
-      .append('g')
-      .at({transform: d => `rotate(${d.θ*180/Math.PI})`})
-
-    var lineSel = boxSel.append('line')
-      .at({ x1: d => x(d.e0), x2: d => x(d.e1), stroke: '#000', strokeWidth: .2 })
-
-    var circle0Sel = boxSel.append('circle')
-      .at({r: 1, fill: '#f0f'})
-    
-    var circle1Sel = boxSel.append('circle')
-      .at({r: 1, fill: 'steelblue'})
-
-    c = {lineSel, circle0Sel, circle1Sel, x}
-  
-    sel.datum(c)
-  }
-
-  c.lineSel.data(boxes)
-    .transition().duration(transitionDuration)
-    .at({ x1: d => c.x(d.e0), x2: d => c.x(d.e1) })
-
-  c.circle0Sel.data(boxes)
-    .transition().duration(transitionDuration)
-    .at({cx: d => x(d.e0)})
-
-  c.circle1Sel.data(boxes)
-    .transition().duration(transitionDuration)
-    .at({cx: d => x(d.e1)})
-
-}
-  
-
+window.scatterDrawn = false
 function drawScatter(boxes){
   var sel = d3.select('#scatter')
 
@@ -189,6 +115,7 @@ function drawHeatLine(embed, sel){
       fill: colorScale,
       x: (d, i) => i*w,
     })
+
 }
 
 
