@@ -56,14 +56,14 @@ function mag(a){
 
 
 
+
+
+
 function render(){
   lines.forEach((d, i) => d.i = i)
 
   drawGrid()
 
-  drawGridSimple(d3.select('#grid-l1'), distL1)
-  drawGridSimple(d3.select('#grid-l2'), distL2)
-  drawGridSimple(d3.select('#grid-cos'), distCosin)
   drawGridSimple(d3.select('#grid-angular'), distAngular)
 
   d3.selectAll('.line-label')
@@ -72,6 +72,16 @@ function render(){
       removeLine(d.str)
       render()
     })
+
+
+  d3.selectAll('.pair-box').on('mouseover', function(d){
+    d3.selectAll('.x-label')
+      .st({fontWeight: e => e.i == d[0].i ? 'bold' : '' })
+
+    d3.selectAll('.y-label')
+      .st({fontWeight: e => e.i == d[1].i ? 'bold' : '' })
+  })
+
 }
 
 function drawGrid(){
@@ -88,14 +98,14 @@ function drawGrid(){
     })
 
 
-  sel.appendMany('div.line-label', lines)
+  sel.appendMany('div.line-label.x-label', lines)
     .st({position: 'absolute'})
     .translate(d => [d.i*s + s/2, s*lines.length])
     .append('div')
     .st({transform: 'rotate(45deg)', transformOrigin: 'left top', fontSize: 12})
     .text(d => d.str)
 
-  sel.appendMany('div.line-label', lines)
+  sel.appendMany('div.line-label.y-label', lines)
     .st({position: 'absolute'})
     .translate(d => [s*lines.length + 5, d.i*s + s/4])
     .append('div')
@@ -105,11 +115,26 @@ function drawGrid(){
 
 
 
-  var pairs = d3.cross(lines, lines)
-    // .filter(([a, b]) => a != b)
+  pairs = d3.cross(lines, lines)
+    .filter(([a, b]) => a != b)
     // .filter(([a, b]) => lines.length - 1 - a.i <= b.i)
 
-  var pairSel = sel.appendMany('div', pairs)
+  // pairs.forEach(d => {
+  //   d.diff = d3.range(512).map(i => Math.abs(d[0].vec[i] - d[1].vec[i]))
+  // })
+
+  vectorOrder = d3.range(512).map(i => {
+    return {
+      rawIndex: i,
+      // variance: d3.variance(pairs, d => d.diff[i]),
+      variance: d3.variance(lines, d => d.vec[i]),
+    }
+  })
+
+  vectorOrder = _.sortBy(vectorOrder, d => -d.variance)
+
+
+  var pairSel = sel.appendMany('div.pair-box', pairs)
     .translate(([a, b]) => [a.i*s, b.i*s])
     .st({background: '#fff', width: s - 1, height: s - 1, position: 'absolute'})
     .each(drawPair)
@@ -130,9 +155,11 @@ function drawGrid(){
 
     var normaliseScale = d3.scaleLinear().domain([0, .1])
 
-    d3.range(512).forEach(i => {
-      var x = p*(i % numX)
-      var y = p*(Math.floor(i/numX))
+    d3.range(512).forEach(j => {
+      var i = vectorOrder[j].rawIndex
+
+      var x = p*(j % numX)
+      var y = p*(Math.floor(j/numX))
 
       var v = Math.abs(a.vec[i] - b.vec[i])
 
@@ -157,14 +184,14 @@ function drawGridSimple(sel, metric){
       marginBottom: 200,
     })
 
-  sel.appendMany('div.line-label', lines)
+  sel.appendMany('div.line-label.x-label', lines)
     .st({position: 'absolute'})
     .translate(d => [d.i*s + s/2, s*lines.length])
     .append('div')
     .st({transform: 'rotate(45deg)', transformOrigin: 'left top', fontSize: 12})
     .text(d => d.str)
 
-  sel.appendMany('div.line-label', lines)
+  sel.appendMany('div.line-label.y-label', lines)
     .st({position: 'absolute'})
     .translate(d => [s*lines.length + 5, d.i*s + s/4])
     .append('div')
@@ -172,7 +199,7 @@ function drawGridSimple(sel, metric){
     .text(d => d.str)
 
   var pairs = d3.cross(lines, lines)
-    // .filter(([a, b]) => a != b)
+    .filter(([a, b]) => a != b)
 
 
   pairs.forEach(d => {
@@ -181,7 +208,7 @@ function drawGridSimple(sel, metric){
   })
 
   var normaliseScale = d3.scaleLinear().domain(d3.extent(pairs, d => d.v))
-  var pairSel = sel.appendMany('div', pairs)
+  var pairSel = sel.appendMany('div.pair-box', pairs)
     .translate(([a, b]) => [a.i*s, b.i*s])
     .st({background: '#fff', width: s - 1, height: s - 1, position: 'absolute'})
     .each(drawPair)
@@ -253,12 +280,23 @@ function drawHeatLine(vec, sel){
 
 
   var rawLines = [
-    'i like my new phone',
-    'your cell phone looks great',
-    'will it snow tomorrow',
-    'hurricanes have hit the us',
-    'how old are you',
-    'what is your name'
+    'i liked the movie',
+    'i loved the movie',
+    'the movie was great',
+    'the movie was good',
+    'the movie was bad',
+    'the movie was awful',
+    'i hated the movie',
+    'i disliked the movie',
+  ]
+
+  var rawLines = [
+    'i liked the movie',
+    'i enjoyed the movie',
+    'i loved the movie',
+    'i disliked the movie',
+    'i hated the movie',
+    'i loathed the movie',
   ]
 
   for (line of rawLines){

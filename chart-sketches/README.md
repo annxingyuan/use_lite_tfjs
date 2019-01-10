@@ -68,4 +68,36 @@ maybe we should give the encoder some tasks? all of these charts are showing lin
 http://nlp.cs.illinois.edu/HockenmaierGroup/8k-pictures.html
 
 
+
+
+https://docs.google.com/document/d/1tyhF9kBckZHnZWR_pBYnSDraSQ1cPuW8_yqv914P18g/edit#heading=h.f6irdlpl0yzk
+
+https://colab.corp.google.com/google_src/files/head/depot/google3/nlp/descartes/models/tfhub/getting-started.ipynb#forceEdit=true&sandboxMode=true&scrollTo=HHqtUlJ4YR-q
+
+Kona Text-to-Clusters Howto
+
+https://docs.google.com/document/d/1YIxnwP73Oe3_-z86Faj49i5knNir5SJ3B33G021WB6Y/edit
+
+https://distill.pub/2016/augmented-rnns/
+
+https://seq2seq-vis.io/
+
 https://bost.ocks.org/mike/algorithms/
+
+
+
+
+Tensor2Tensor Intro
+
+has a little visualization at the bottom, not totally sure what it is showing
+
+https://colab.sandbox.google.com/github/tensorflow/tensor2tensor/blob/master/tensor2tensor/notebooks/hello_t2t.ipynb#scrollTo=CIFlkiVOd8jO
+
+https://research.googleblog.com/2017/08/
+
+
+
+
+
+
+
