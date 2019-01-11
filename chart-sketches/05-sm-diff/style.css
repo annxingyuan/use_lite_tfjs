@@ -1,0 +1,117 @@
+html{
+  font-family: menlo, Consolas, 'Lucida Console', monospace; 
+  margin: 0px;
+  opacity: 0;
+}
+
+input{
+  font-family: menlo, Consolas, 'Lucida Console', monospace; 
+  margin-left: 20px;
+}
+
+body{
+  margin: 0px;
+}
+
+#main{
+  margin: 10px;
+  margin-top: 0px;
+
+}
+
+.tooltip {
+  top: -1000px;
+  position: fixed;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+}
+.tooltip-hidden{
+  opacity: 0;
+  transition: all .3s;
+  transition-delay: .1s;
+}
+
+@media (max-width: 590px){
+  div.tooltip{
+    bottom: -1px;
+    width: calc(100%);
+    left: -1px !important;
+    right: -1px !important;
+    top: auto !important;
+    width: auto !important;
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+.domain{
+  display: none;
+}
+
+text{
+  /*pointer-events: none;*/
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;*/
+}
+
+
+
+input{
+  width: 400px;
+  /*margin-left: 522px;*/
+}
+
+p{
+  max-width: 560px;
+}
+
+#input-bar{
+  position: sticky;
+  top: 0px;
+  background: #000;
+  width: 100%;
+  z-index: 100;
+  padding: 10px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+
+section{
+  margin-bottom: 100px;
+  margin-top: 20px;
+}
+
+.fragment-row{
+  line-height: 0px
+}
+
+.fragment-row > div{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#graph{
+  margin-top: 40px;
+}
+
+.sentence{
+  display: inline-block;
+  width: 350px;
+}
+
+.pair{
+  margin-top: 20px;
+}
+
+
+.pair-line.active{
+  stroke-width: 2;
+  opacity: 1;
+  stroke: #000;
+}
+
+
