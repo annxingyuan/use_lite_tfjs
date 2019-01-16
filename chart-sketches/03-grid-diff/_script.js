@@ -253,17 +253,45 @@ function drawHeatLine(vec, sel){
 
 
   var rawLines = [
-    'i like my new phone',
-    'your cell phone looks great',
-    'will it snow tomorrow',
-    'hurricanes have hit the us',
-    'how old are you',
-    'what is your name'
+    'I like my new phone',
+    'Your cell phone looks great.',
+    'Will it snow tomorrow?',
+    'Hurricanes have hit the us',
+    'How old are you?',
+    'What is your name?'
+  ]
+
+  var rawLines = [
+    'She played soccer every week.',
+    'She plays soccer every week.',
+    'He was juggling.',
+    'He is juggling.',
+    'The dog chased the cat.',
+    'The dog chases the cat.',
+    'He adjusted his knapsack.',
+    'He adjusts his knapsack.',
+    'I watched the ball.',
+    'AVG DIFF FROM WATCHED',
+    'I watch the ball.',
+    'I saw the ball.',
+    'I shown the ball.',
+    'I watching the ball.',
   ]
 
   for (line of rawLines){
     await addLine(line)
   }
+
+  if (rawLines.includes('AVG DIFF FROM WATCHED')){
+    watchedLine = lines.filter(d => d.str == 'I watched the ball.')[0]
+    diffLine = lines.filter(d => d.str == 'AVG DIFF FROM WATCHED')[0]
+
+    d3.range(512).forEach(i => {
+      diffLine.vec[i] = watchedLine.vec[i] - meanDiff[i].rawMean 
+    })
+  }
+
+
 
   render()
 

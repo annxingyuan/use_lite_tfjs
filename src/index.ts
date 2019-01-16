@@ -45,7 +45,10 @@ window.init = init
 var embedCache = window.embedCache = {}
 
 window.getEmbedding = async function(str){
-  if (embedCache[str]) return embedCache[str]
+  if (embedCache[str]){
+    const {encoding, embedding, vec} = embedCache[str]
+    return  {str, encoding, embedding, vec}
+  }
 
   const encoding = tokenizer.encode(str);
 

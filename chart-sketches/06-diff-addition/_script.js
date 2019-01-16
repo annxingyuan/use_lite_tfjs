@@ -67,10 +67,18 @@ function render(setSort){
   pairs = d3.nestBy(lines, d => d.pi)
     .filter(d => d.length == 2)
 
+  console.log('PAIRS', pairs.length, lines.length)
+
+
   pairs.forEach((pair, pairIndex) => {
+    var isPlaceHolder = pair[1].str.includes('AVG')
+   
     pair.vec = d3.range(512).map(i => {
       var a = pair[0].vec[i]
       var b = pair[1].vec[i]
+
+      if (isPlaceHolder) b  = a - meanDiffRawSort[i].rawMean
+
       var diff = a - b
 
       return {a, b, diff, i, pair}
@@ -83,14 +91,12 @@ function render(setSort){
   if (setSort){
     meanDiff = d3.range(512)
       .map(i => {
-        var mean = d3.mean(pairs, d => d.vec[i].diff)
-        var isFlip = mean < 0
+        var rawMean = d3.mean(pairs, d => d.vec[i].diff)
+        var isFlip = rawMean < 0
 
-        if (isFlip){
-          mean = -mean
-        }
+        var mean = isFlip ? -rawMean : rawMean
 
-        return {i, mean, isFlip}
+        return {i, rawMean, mean, isFlip}
       })
   } else {
 
@@ -104,7 +110,7 @@ function render(setSort){
     })
   })
 
-
+  meanDiffRawSort = meanDiff.slice()
   meanDiff = _.sortBy(meanDiff, d => -d.mean)
   pairs.forEach(pair => {
 
@@ -245,14 +251,37 @@ function drawBoxBar(boxes, sel){
   //   'i loathed the movie',
   // ]
 
+
+  var rawLines = [
+    'She played soccer every week.',
+    'She plays soccer every week.',
+    'He was juggling.',
+    'He is juggling.',
+    // 'They had won three games.',
+    // 'They have won three games.',
+    'The dog chased the cat.',
+    'The dog chases the cat.',
+    // 'One eyebrow arched way up to her forehead.',
+    // 'One eyebrow arches way up to her forehead.',
+    'He adjusted his knapsack.',
+    'He adjusts his knapsack.',
+  ]
+
   for (line of rawLines){
     await addLine(line)
   }
 
   render(true)
 
-  await addLine('I ran to the park.')
-  await addLine('I jogged to the park.')
+  await addLine('I watched the ball.')
+  await addLine('AVG DIFF FROM WATCHED')
+
+  await addLine('I watched the ball.')
+  await addLine('I watch the ball.')
+  
+  await addLine('I watched the ball.')
+  await addLine('I saw the ball.')
+
   render()
 
   // await addLine('I jog to the park.')

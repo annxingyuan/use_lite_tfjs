@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+
+
+<div id='input-bar'>
+	<input id='str0'></input>
+</div>
+
+<div id='main'>
+
+  <section>
+    <b>What's the difference between each pair of sentences?</b>
+    <div id='sentences'></div>
+
+    <div id='box-line'></div>
+
+    <p>Each box represents one element of the embedding. The lines show how that element changed across each pair of sentences.
+    <p>Boxes are sorted by their mean change; the signs have been flipped so change is usually positive.
+
+    <div id='box-bar'></div>
+    <p>This only show the change between the first and second sentence    
+
+  </section>
+
+
+
+
+
+
+</div>
+
+
+
+<script src="https://unpkg.com/@tensorflow/tfjs-core/dist/tf-core.js"></script>
+<script src="https://unpkg.com/@tensorflow/tfjs-converter/dist/tf-converter.js"></script>
+
+<script src="/dist/src.f10117fe.js"></script>
+
+
+<script src='../00-compare-two/d3_.js'></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<script src='_script.js'></script>
