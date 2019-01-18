@@ -296,7 +296,7 @@ function drawHeatLine(vec, sel){
     'i loved the movie',
     'i disliked the movie',
     'i hated the movie',
-    'i loathed the movie',
+    "i did not like the movie",
   ]
 
   for (line of rawLines){

@@ -261,22 +261,22 @@ function drawHeatLine(vec, sel){
     'What is your name?'
   ]
 
-  var rawLines = [
-    'She played soccer every week.',
-    'She plays soccer every week.',
-    'He was juggling.',
-    'He is juggling.',
-    'The dog chased the cat.',
-    'The dog chases the cat.',
-    'He adjusted his knapsack.',
-    'He adjusts his knapsack.',
-    'I watched the ball.',
-    'AVG DIFF FROM WATCHED',
-    'I watch the ball.',
-    'I saw the ball.',
-    'I shown the ball.',
-    'I watching the ball.',
-  ]
+  // var rawLines = [
+  //   'She played soccer every week.',
+  //   'She plays soccer every week.',
+  //   'He was juggling.',
+  //   'He is juggling.',
+  //   'The dog chased the cat.',
+  //   'The dog chases the cat.',
+  //   'He adjusted his knapsack.',
+  //   'He adjusts his knapsack.',
+  //   'I watched the ball.',
+  //   'AVG DIFF FROM WATCHED',
+  //   'I watch the ball.',
+  //   'I saw the ball.',
+  //   'I shown the ball.',
+  //   'I watching the ball.',
+  // ]
 
   for (line of rawLines){
     await addLine(line)

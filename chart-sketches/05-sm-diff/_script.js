@@ -251,8 +251,8 @@ function drawBoxBar(boxes, sel){
 
   render(true)
 
-  await addLine('I ran to the park.')
-  await addLine('I jogged to the park.')
+  // await addLine('I ran to the park.')
+  // await addLine('I jogged to the park.')
   render()
 
   // await addLine('I jog to the park.')
