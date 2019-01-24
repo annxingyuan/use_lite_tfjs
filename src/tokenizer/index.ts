@@ -31,14 +31,13 @@ Tokenizer.prototype.encode = function(input) {
   }
 
   for (let i = 0; i < symbols.length; i++) {
-    let ss = symbols.slice(i).join('');
-    let matches = this.trie.commonPrefixSearch(ss);
+    let matches = this.trie.commonPrefixSearch(symbols.slice(i));
 
     for (let j = 0; j < matches.length; j++) {
       let piece = matches[j];
       let obj = {key: piece[0], score: piece[1], index: piece[2]};
 
-      let endPos = piece[0].length;
+      let endPos = [...piece[0]].length;  // unicode aware
       if (typeof nodes[i + endPos][i] === 'undefined') {
         nodes[i + endPos][i] = [];
       }

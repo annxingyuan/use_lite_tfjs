@@ -54,7 +54,7 @@ Trie.prototype.commonPrefixSearch = function(ss) {
 function findAllCommonPrefixes(ss, node, arr) {
   if (node.end) {
     let word = node.getWord();
-    if (ss.substring(0, word[0].length) === word[0]) {
+    if (ss.slice(0, [...word[0]].length).join('') === word[0]) {
       arr.unshift(word);
     }
   }

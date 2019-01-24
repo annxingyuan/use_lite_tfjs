@@ -18,4 +18,8 @@ describe('tokenizer', () => {
     expect(tokenizer.encode('ça va bien'))
         .toEqual(tokenizer.encode('c\u0327a va bien'));
   });
+
+  it('should handle unknown inputs', () => {
+    expect(tokenizer.encode('cat😹').toNotThrow());
+  });
 });
