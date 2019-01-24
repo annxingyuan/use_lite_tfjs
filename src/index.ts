@@ -16,24 +16,32 @@ async function loadVocab() {
   return await vocab.json();
 }
 
-// only works with single inputs for now
-const embed = async values => await model.executeAsync({
-  indices: tf.tensor2d(
-      flatten(values.map((d, i) => [0, i])), [values.length, 2], 'int32'),
-  values: tf.tensor1d(values, 'int32')
-});
+const embed = async values => {
+  const indices =
+      flatten(values.map((arr, i) => arr.map((d, index) => [i, index])));
+
+  return await model.executeAsync({
+    indices: tf.tensor2d(flatten(indices), [indices.length, 2], 'int32'),
+    values: tf.tensor1d(flatten(values), 'int32')
+  })
+};
 
 async function init() {
   model = await load();
   vocabulary = await loadVocab();
 
   const tokenizer = new Tokenizer(vocabulary);
-  const encoding = tokenizer.encode('I saw a girl with an alligator.');
-  encoding.forEach(d => console.log(vocabulary[d]));
 
-  const embedding = await embed(encoding);
-  const embeddingValues = embedding.dataSync();
-  console.log(embeddingValues);
-}
+  const inputs = [
+    'Elephant', 'I am a sentence for which I would like to get its embedding.',
+    'Universal Sentence Encoder embeddings also support short paragraphs. There is no hard limit on how long the paragraph is. Roughly, the longer the more \'diluted\' the embedding will be.'
+  ];
+
+  const encodings = inputs.map(d => tokenizer.encode(d));
+
+  const embeddings = await embed(encodings);
+  const embeddingValues = embeddings.dataSync();
+  console.log(embeddingValues);  // 512 for each
+};
 
 init();
