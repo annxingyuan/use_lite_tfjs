@@ -1,7 +1,8 @@
 import Trie from './trie';
 
 function processInput(str) {
-  return '▁' + str.replace(/ /g, '▁');
+  const normalized = str.normalize();
+  return '▁' + normalized.replace(/ /g, '▁');
 }
 
 function Tokenizer(vocab) {
