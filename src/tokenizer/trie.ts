@@ -42,15 +42,17 @@ class Trie {
   insert(word, score, index) {
     let node = this.root;
 
-    for (let i = 0; i < word.length; i++) {
-      if (!node.children[word[i]]) {
-        node.children[word[i]] = new TrieNode(word[i]);
-        node.children[word[i]].parent = node;
+    const symbols = [...word];
+
+    for (let i = 0; i < symbols.length; i++) {
+      if (!node.children[symbols[i]]) {
+        node.children[symbols[i]] = new TrieNode(symbols[i]);
+        node.children[symbols[i]].parent = node;
       }
 
-      node = node.children[word[i]];
+      node = node.children[symbols[i]];
 
-      if (i == word.length - 1) {
+      if (i === symbols.length - 1) {
         node.end = true;
         node.score = score;
         node.index = index;
