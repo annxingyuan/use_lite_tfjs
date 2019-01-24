@@ -11,11 +11,13 @@ class TrieNode {
     let node = this;
 
     while (node !== null) {
-      output.unshift(node.key);
+      if (node.key !== null) {
+        output.unshift(node.key);
+      }
       node = node.parent;
     }
 
-    return [output.join(''), this.score, this.index];
+    return [output, this.score, this.index];
   }
 }
 
@@ -27,7 +29,7 @@ class Trie {
   findAllCommonPrefixes(ss, node, arr) {
     if (node.end) {
       const word = node.getWord();
-      if (ss.slice(0, [...word[0]].length).join('') === word[0]) {
+      if (ss.slice(0, word[0].length).join('') === word[0].join('')) {
         arr.unshift(word);
       }
     }

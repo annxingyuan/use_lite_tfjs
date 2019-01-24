@@ -38,6 +38,7 @@ async function init() {
   ];
 
   const encodings = inputs.map(d => tokenizer.encode(d));
+  console.log(encodings);
 
   const embeddings = await embed(encodings);
   const embeddingValues = embeddings.dataSync();
