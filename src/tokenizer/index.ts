@@ -1,7 +1,7 @@
 import Trie from './trie';
 
 function processInput(str) {
-  const normalized = str.normalize();
+  const normalized = str.normalize('NFKC');
   return '▁' + normalized.replace(/ /g, '▁');
 }
 
@@ -9,7 +9,9 @@ function Tokenizer(vocab) {
   this.vocab = vocab;
   this.trie = new Trie();
 
-  for (let i = 0; i < this.vocab.length; i++) {
+  // The first five tokens are reserved for unk, control symbols, and
+  // user-defined symbols.
+  for (let i = 6; i < this.vocab.length; i++) {
     this.trie.insert(this.vocab[i][0], this.vocab[i][1], i);
   }
 }
@@ -20,15 +22,16 @@ Tokenizer.prototype.encode = function(input) {
   const best = [];
 
   input = processInput(input);
+  const symbols = [...input];  // unicode-aware iterator
 
-  for (let i = 0; i <= input.length; i++) {
+  for (let i = 0; i <= symbols.length; i++) {
     nodes.push({});
     words.push('');
     best.push(0);
   }
 
-  for (let i = 0; i < input.length; i++) {
-    let ss = input.substring(i);
+  for (let i = 0; i < symbols.length; i++) {
+    let ss = symbols.slice(i).join('');
     let matches = this.trie.commonPrefixSearch(ss);
 
     for (let j = 0; j < matches.length; j++) {
@@ -44,7 +47,7 @@ Tokenizer.prototype.encode = function(input) {
     }
   }
 
-  for (let endPos = 0; endPos <= input.length; endPos++) {
+  for (let endPos = 0; endPos <= symbols.length; endPos++) {
     for (let startPos in nodes[endPos]) {
       let arr = nodes[endPos][startPos];
 

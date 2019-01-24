@@ -40,15 +40,16 @@ Trie.prototype.insert = function(word, score, index) {
   }
 };
 
-Trie.prototype.commonPrefixSearch =
-    function(ss) {
+Trie.prototype.commonPrefixSearch = function(ss) {
   var node = this.root.children[ss[0]];
   var output = [];
-
-  findAllCommonPrefixes(ss, node, output);
-
+  if (node) {
+    findAllCommonPrefixes(ss, node, output);
+  } else {
+    output.push([ss[0], 0, 0]);  // unknown token
+  }
   return output;
-}
+};
 
 function findAllCommonPrefixes(ss, node, arr) {
   if (node.end) {
