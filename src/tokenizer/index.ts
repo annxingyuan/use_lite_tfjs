@@ -70,7 +70,19 @@ Tokenizer.prototype.encode = function(input) {
     iter -= this.vocab[words[iter]][0].length;
   }
 
-  return results.reverse();
+  // Merge contiguous unks.
+  const merged = [];
+  let isPreviousUnk = false;
+  for (let i = 0; i < results.length; i++) {
+    const id = results[i];
+    if (!(isPreviousUnk && id === 0)) {
+      merged.push(id);
+    }
+
+    isPreviousUnk = id === 0;
+  }
+
+  return merged.reverse();
 };
 
 export default Tokenizer;

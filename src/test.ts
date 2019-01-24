@@ -22,4 +22,8 @@ describe('tokenizer', () => {
   it('should handle unknown inputs', () => {
     expect(tokenizer.encode('cat😹').toNotThrow());
   });
+
+  it('should treat contiguous unknown inputs as a single word', () => {
+    expect(tokenizer.encode('cat 😹😹').toEqual([1163, 30, 0]));
+  });
 });
