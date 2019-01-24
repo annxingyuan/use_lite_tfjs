@@ -1,66 +1,70 @@
-function TrieNode(key) {
-  this.key = key;
-  this.parent = null;
-  this.children = {};
-  this.end = false;
+class TrieNode {
+  constructor(key) {
+    this.key = key;
+    this.parent = null;
+    this.children = {};
+    this.end = false;
+  }
+
+  getWord() {
+    const output = [];
+    let node = this;
+
+    while (node !== null) {
+      output.unshift(node.key);
+      node = node.parent;
+    }
+
+    return [output.join(''), this.score, this.index];
+  }
 }
 
-TrieNode.prototype.getWord = function() {
-  var output = [];
-  var node = this;
-
-  while (node !== null) {
-    output.unshift(node.key);
-    node = node.parent;
+class Trie {
+  constructor() {
+    this.root = new TrieNode(null);
   }
 
-  return [output.join(''), this.score, this.index];
-};
-
-function Trie() {
-  this.root = new TrieNode(null);
-}
-
-Trie.prototype.insert = function(word, score, index) {
-  var node = this.root;
-
-  for (var i = 0; i < word.length; i++) {
-    if (!node.children[word[i]]) {
-      node.children[word[i]] = new TrieNode(word[i]);
-      node.children[word[i]].parent = node;
+  findAllCommonPrefixes(ss, node, arr) {
+    if (node.end) {
+      const word = node.getWord();
+      if (ss.slice(0, [...word[0]].length).join('') === word[0]) {
+        arr.unshift(word);
+      }
     }
 
-    node = node.children[word[i]];
-
-    if (i == word.length - 1) {
-      node.end = true;
-      node.score = score;
-      node.index = index;
-    }
-  }
-};
-
-Trie.prototype.commonPrefixSearch = function(ss) {
-  var node = this.root.children[ss[0]];
-  var output = [];
-  if (node) {
-    findAllCommonPrefixes(ss, node, output);
-  } else {
-    output.push([ss[0], 0, 0]);  // unknown token
-  }
-  return output;
-};
-
-function findAllCommonPrefixes(ss, node, arr) {
-  if (node.end) {
-    let word = node.getWord();
-    if (ss.slice(0, [...word[0]].length).join('') === word[0]) {
-      arr.unshift(word);
+    for (let child in node.children) {
+      this.findAllCommonPrefixes(ss, node.children[child], arr);
     }
   }
 
-  for (var child in node.children) {
-    findAllCommonPrefixes(ss, node.children[child], arr);
+  insert(word, score, index) {
+    let node = this.root;
+
+    for (let i = 0; i < word.length; i++) {
+      if (!node.children[word[i]]) {
+        node.children[word[i]] = new TrieNode(word[i]);
+        node.children[word[i]].parent = node;
+      }
+
+      node = node.children[word[i]];
+
+      if (i == word.length - 1) {
+        node.end = true;
+        node.score = score;
+        node.index = index;
+      }
+    }
+  }
+
+  commonPrefixSearch(ss) {
+    const node = this.root.children[ss[0]];
+    const output = [];
+    if (node) {
+      this.findAllCommonPrefixes(ss, node, output);
+    } else {
+      output.push([ss[0], 0, 0]);  // unknown token
+    }
+    return output;
   }
 }
 
