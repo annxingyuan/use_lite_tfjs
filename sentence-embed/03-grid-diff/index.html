@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+
+
+<div id='input-bar'>
+	<input id='str0'></input>
+</div>
+
+<div id='main'>
+
+    <p>From the Universal Sentence Encoder paper 
+    <img src='heatmap.png' width='500'>
+    <img src='heatmap-lite.png' width='500'>
+
+	<section>
+    <p>Difference between each value in the encodings of the two sentences</p>
+    <div id='grid'></div>
+
+    <p>L1 distance between sentences</p>
+    <div id='grid-l1'></div>
+
+    <p>L2 distance between sentences</p>
+    <div id='grid-l2'></div>
+
+    <p>cosine similarity</p>
+    <div id='grid-cos'></div>
+
+    <p>angular distance (what the paper uses)</p>
+    <div id='grid-angular'></div>
+
+    <p>hmm, not as good as the paper!
+
+
+	</section>
+
+</div>
+
+
+
+<script src="https://unpkg.com/@tensorflow/tfjs-core/dist/tf-core.js"></script>
+<script src="https://unpkg.com/@tensorflow/tfjs-converter/dist/tf-converter.js"></script>
+
+<script src="../src.f10117fe.js"></script>
+
+<script src="../06-diff-addition/meanDiff.js"></script>
+
+
+<script src='../00-compare-two/d3_.js'></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<script src='_script.js'></script>
